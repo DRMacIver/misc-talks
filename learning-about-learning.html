@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>What I've learned about learning</title>
+
+    <meta name="author" content="David R. MacIver">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+    <link rel="stylesheet" href="reveal/css/theme/simple.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+      .reveal h1 { font-size: 1.75em; }
+      .reveal h2 { font-size: 1.50em; }
+      .reveal h3 { font-size: 1em; margin-top: 1em; margin-bottom: 5px; }
+      .reveal pre code {
+        padding: 20px 50px 20px 50px !important;
+      }
+      img {
+        border: none !important;
+      }
+      section.prose ul {
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <div class="slides">
+        <section>
+          <h1>What I've learned about learning</h1>
+        </section>
+
+<section><h2>Learning is frustrating</h2></section>
+<section><h2>Start with the problem, not the solution</h2></section>
+<section><h2>Familiarity is not understanding</h2></section>
+<section><h2>Mix it up</h2></section>
+<section><h2>Space it out</h2></section>
+<section><h2>Test it</h2></section>
+<section>
+  <h2>Further reading</h2>
+  <ul>
+    <li>Making it Stick - Peter C. Brown</li>
+    <li>What the best college teachers do - Ken Bain</li>
+    <li><a href=https://mkremins.github.io/blog/doors-headaches-intellectual-need/>Locked doors, headaches, and intellectual need</a></li>
+    <li><a href=http://www.drmaciver.com/2013/08/how-did-you-get-started-so-quickly/>How to quickly become effective when joining a new company</a></li>
+  </ul>
+
+</section>
+
+    <script src="reveal/lib/js/head.min.js"></script>
+    <script src="reveal/js/reveal.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'fade',
+
+        dependencies: [
+          { src: 'reveal/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal/plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
