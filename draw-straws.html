@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Making fair decisions</title>
+
+    <meta name="author" content="David R. MacIver">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+    <link rel="stylesheet" href="reveal/css/theme/simple.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+      .reveal h1 { font-size: 1.75em; }
+      .reveal h2 { font-size: 1.50em; }
+      .reveal h3 { font-size: 1em; margin-top: 1em; margin-bottom: 5px; }
+      .reveal pre code {
+        padding: 20px 50px 20px 50px !important;
+      }
+      img {
+        border: none !important;
+      }
+      section.prose ul {
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <div class="slides">
+        <section>
+          <h1>Making fair decisions</h1>
+        </section>
+
+    <section>
+      <ul style="list-style-type: none">
+        <li>🍕🍕🍕🍕🍕🍕</li>
+        <li>🍖🍖🍖🍖</li>
+      </ul>
+    </section>
+
+    <section>
+      <ul style="list-style-type: none">
+        <li>🍕🍕🍕🍕🍕🍕 ☺</li>
+        <li>🍖🍖🍖🍖 ☹</li>
+      </ul>
+    </section>
+
+    <section>
+    <ol>
+      <li>🍕</li>
+      <li>🍕</li>
+      <li>🍕</li>
+      <li>🍕</li>
+      <li>🍕</li>
+      <li>🍕</li>
+      <li>🍖</li>
+      <li>🍖</li>
+      <li>🍖</li>
+      <li>🍖</li>
+    </ol>
+
+    <pre style="text-align: center"><code class=python data-trim>
+      random.randint(1, 10) 
+    </code></pre>
+    </section>
+
+    <section>
+  <pre><code class=python data-trim>
+&gt;&gt;&gt; from numpy.random import binomial
+&gt;&gt;&gt; binomial(52, 0.6, size=10)
+array([34, 25, 33, 36, 32, 33, 25, 32, 29, 26])
+&gt;&gt;&gt; 52 * 0.6
+31.2
+&gt;&gt;&gt; 36 / 52
+0.6923076923076923
+&gt;&gt;&gt; 25 / 52
+0.4807692307692308
+    </code></pre>
+
+
+  <pre class=fragment><code class="python" data-trim>
+&gt;&gt;&gt; binomial(12, 0.6, size=10)
+array([ 3,  9, 10,  5,  7,  5,  8,  5,  9,  5])
+    </code></pre>
+</section>
+
+<section>
+  <h1>?</h1>
+</section>
+
+    <script src="reveal/lib/js/head.min.js"></script>
+    <script src="reveal/js/reveal.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'fade',
+
+        dependencies: [
+          { src: 'reveal/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal/plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
