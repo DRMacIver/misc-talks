@@ -1,5 +1,6 @@
-strike.jpg -> https://en.wikipedia.org/wiki/2011_Oakland_general_strike
-hiring.jpg -> https://pixabay.com/en/building-neon-sign-communication-804526/
-cash.jpg -> https://commons.wikimedia.org/wiki/File:Money_Cash.jpg
-sharing.jpg -> https://www.flickr.com/photos/64564654@N00/2640147575
-treaty.jpg -> https://en.wikipedia.org/wiki/Jay_Treaty
+<a href="https://en.wikipedia.org/wiki/2011_Oakland_general_strike"><img src="images/strike.jpg" /></a>
+<a href="https://pixabay.com/en/building-neon-sign-communication-804526/"><img src="images/hiring.jpg" /></a>
+<a href="https://commons.wikimedia.org/wiki/File:Money_Cash.jpg"><img src=images/cash.jpg></a>
+<a href="https://www.flickr.com/photos/64564654@N00/2640147575"><img src="images/sharing.jpg" /></a>
+<a href="https://en.wikipedia.org/wiki/Jay_Treaty"><img src="images/treaty.jpg"></a>
+<a href="https://www.flickr.com/photos/mikecogh/16841273216"><img src=images/work-together.jpg></a>
