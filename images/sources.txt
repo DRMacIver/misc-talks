@@ -4,3 +4,6 @@
 <a href="https://www.flickr.com/photos/64564654@N00/2640147575"><img src="images/sharing.jpg" /></a>
 <a href="https://en.wikipedia.org/wiki/Jay_Treaty"><img src="images/treaty.jpg"></a>
 <a href="https://www.flickr.com/photos/mikecogh/16841273216"><img src=images/work-together.jpg></a>
+<section><a href="https://www.flickr.com/photos/34427468531@N01/508121696"><img src=images/waaah.jpg></a></section>
+<section><a href="https://www.flickr.com/photos/ghimmelmann/8435556337"><img src=images/fork.jpg></a></section>
+<section><a href="https://www.flickr.com/photos/spcbrass/4388396268"><img src=images/change.jpg></a></section>
