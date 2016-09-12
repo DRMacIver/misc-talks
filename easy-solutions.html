@@ -1,0 +1,303 @@
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Easy Solutions to Hard Problems</title>
+
+    <meta name="author" content="David R. MacIver">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+    <link rel="stylesheet" href="reveal/css/theme/simple.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+      .reveal h1 { font-size: 1.75em; }
+      .reveal h2 { font-size: 1.50em; }
+      .reveal h3 { font-size: 1em; margin-top: 1em; margin-bottom: 5px; }
+      .reveal pre code {
+        padding: 20px 50px 20px 50px !important;
+      }
+      img {
+        border: none !important;
+      }
+      section.prose ul {
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <div class="slides">
+        <section>
+          <h1>Easy Solutions to Hard Problems</h1>
+  <p>
+    <a href="http://www.drmaciver.com">drmaciver.com</a> / <a href="https://twitter.com/DRMacIver/">@DRMacIver</a>
+  </p>
+        </section>
+    <section>
+      <h2>P vs NP</h2>
+    </section>
+
+    <section>
+      <h2>P: Easy to solve</h2>
+      <p>O(n), O(n^2), etc.</p>
+    </section>
+
+    <section>
+      <h2>NP: Easy to verify a solution</h2>
+    </section>
+
+    <section>
+      <h2>NP Hard</h2>
+    </section>
+
+    <section>
+      <h2>NP Complete</h2>
+    </section>
+
+    <section>
+      <h2>SAT</h2>
+    <pre class=fragment><code class=python data-trim>
+all([
+  v1 or not v2 or v3,
+  not v1 or not v3,
+  v1 or v2,
+])
+    </code></pre>
+
+    <pre class=fragment><code class=python data-trim>
+v1 = False
+v2 = True
+v3 = True
+    </code></pre>
+    </section>
+
+    <section>
+      <h2>ILP</h2>
+    <pre class=fragment><code class=python data-trim>
+all([
+  0 &lt;= v1 &lt;= 1,
+  0 &lt;= v2 &lt;= 1,
+  0 &lt;= v3 &lt;= 1,
+  v1 + (1 - v2) + v3 &gt;= 1,
+  (1 - v1) + (1 - v3) &gt;= 1,
+  v1 + v2 &gt;= 1
+])
+    </code></pre>
+    <pre class=fragment><code class=python data-trim>
+v1 = 0 
+v2 = 1 
+v3 = 1 
+    </code></pre>
+    </section>
+
+    <section>
+    <pre><code class=python data-trim>
+import pulp
+
+v1 = pulp.LpVariable('v1', cat='Binary')
+v2 = pulp.LpVariable('v2', cat='Binary')
+v3 = pulp.LpVariable('v3', cat='Binary')
+
+problem = pulp.LpProblem()
+
+problem.addConstraint(v1 + (1 - v2) + v3 &gt;= 1)
+problem.addConstraint((1 - v1) + (1 - v3) &gt;= 1)
+problem.addConstraint(v1 + v2 &gt;= 1)
+
+problem.solve()
+
+print("v1 =", pulp.value(v1))
+print("v2 =", pulp.value(v2))
+print("v3 =", pulp.value(v3))
+    </code></pre>
+    <pre class=fragment><code class=python data-trim>
+v1 = 1.0
+v2 = 0.0
+v3 = 0.0
+    </code></pre>
+    </section>
+
+    <section>
+    <pre><code class=python data-trim>
+import pulp
+
+def pack_knapsack(items, capacity):
+    problem = pulp.Problem()
+    inclusions = [
+        pulp.LpVariable('I%d', cat='Binary')
+        for i in range(len(items))
+    ]
+    problem.addConstraint(sum(
+      weight * included for weight, _ in items) &lt;= capacity)
+    problem.sense = pulp.constants.LpMaximize
+    problem.objective = sum(value * included for _, value in items)
+    problem.solve()
+    return [
+      item for item, included in zip(items, inclusions)
+      if pulp.value(included) &gt; 0
+    ]
+
+    </code></pre>
+    </section>
+
+    <section>
+    <pre><code class=python data-trim>
+def arrange_talks(talks, rooms, slots):
+    problem = pulp.Problem()
+    variables = {
+      (t, r, s): pulp.LpVariable(
+        "Schedule_%d_%d_%d" % (t, r, s), cat='Binary')
+      for t in talks for r in rooms for s in slots
+    }
+    ... # TODO: constraints go here
+    ... # TODO: what to optimize by??
+    problem.solve()
+    return [
+        assignment for assignment, variable in variables.items()
+        if pulp.value(variable) &gt; 0
+    ]
+
+    </code></pre>
+    </section>
+
+    <section>
+    <pre><code class=python data-trim>
+
+for t in talks:
+    problem.addConstraint(sum(
+      variables[(t, r, s)]
+      for r in rooms for s in slots
+    ) == 1)
+    </code></pre>
+
+    <pre class=fragment><code class=python data-trim>
+for r in rooms:
+    for s in slots:
+      problem.addConstraint(sum(
+        variables[(t, r, s)] for t in talks
+      ) &lt;= 1)
+
+    </code></pre>
+    </section>
+
+    <section>
+    <pre><code class=python data-trim>
+
+for t in talks:
+    for s in slots:
+        if not speaker_is_available(t, s):
+            for r in rooms:
+                problem.addConstraint(
+                  variables[(t, r, s)] == 0
+                )
+    </code></pre>
+    </section>
+
+    <section>
+    <pre><code class=python data-trim>
+
+for speaker in speakers:
+    for s in slots:
+        for t in speaker.talks:
+            problem.addConstraint(sum(
+              variables[(t, r, s)] for r in rooms
+            ) &lt;= 1)
+    </code></pre>
+    </section>
+
+    <section>
+    <pre><code class=python data-trim>
+disappointments = []
+
+for t in talks:
+    capacity = sum(
+      room_capacity(r) * variables[(t, r, s)]
+      for r in rooms for s in slots
+    )
+    d = pulp.LpVariable(
+      'Disappointment_%d' % (t,)
+      cat='Integer', lowBound=0
+    )
+    disappointments.append(d)
+    problem.addConstraint(d &gt;= interest_in(talk) - capacity)
+
+problem.sense = pulp.constants.LpMinimize
+problem.objective = sum(disappointments)
+    </code></pre>
+    </section>
+
+    <section>
+    <pre><code class=python data-trim>
+
+problem.sense = pulp.constants.LpMaximize
+problem.objective = sum(
+  variables[(t, r, s)]
+  for (t, r, s) in previous_schedule_version
+)
+
+    </code></pre>
+    </section>
+
+    <section>
+<ul>
+<li class=fragment><a href="https://pypi.python.org/pypi/pulp">PuLP</a></li>
+<li class=fragment><a href="https://www.gnu.org/software/glpk/">GLPK</a></li>
+<li class=fragment><a href="http://www.coin-or.org/">COIN-OR</a></li>
+</ul>
+    </section>
+
+
+<section>
+  <h1>?</h1>
+</section>
+</div></div>
+
+    <script src="reveal/lib/js/head.min.js"></script>
+    <script src="reveal/js/reveal.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'fade',
+
+        dependencies: [
+          { src: 'reveal/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal/plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
