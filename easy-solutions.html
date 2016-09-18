@@ -123,7 +123,7 @@ problem.addConstraint(v1 + (1 - v2) + v3 &gt;= 1)
 problem.addConstraint((1 - v1) + (1 - v3) &gt;= 1)
 problem.addConstraint(v1 + v2 &gt;= 1)
 
-problem.solve()
+problem.solve(pulp.solvers.GLPK(msg=0))
 
 print("v1 =", pulp.value(v1))
 print("v2 =", pulp.value(v2))
@@ -137,24 +137,32 @@ v3 = 0.0
     </section>
 
     <section>
-    <pre><code class=python data-trim>
+    <pre class=stretch><code class=python data-trim>
 import pulp
 
 def pack_knapsack(items, capacity):
-    problem = pulp.Problem()
+    problem = pulp.LpProblem()
+
     inclusions = [
-        pulp.LpVariable('I%d', cat='Binary')
+        pulp.LpVariable('I%d' % (i,), cat='Binary')
         for i in range(len(items))
     ]
+
     problem.addConstraint(sum(
-      weight * included for weight, _ in items) &lt;= capacity)
+      weight * included
+      for (weight, _), included in zip(items, inclusions)) &lt;= capacity)
+
     problem.sense = pulp.constants.LpMaximize
-    problem.objective = sum(value * included for _, value in items)
-    problem.solve()
+    problem.objective = sum(
+        value * included for (_, value), included in zip(items, inclusions))
+
+    problem.solve(pulp.solvers.GLPK(msg=0))
+
     return [
       item for item, included in zip(items, inclusions)
       if pulp.value(included) &gt; 0
     ]
+
 
     </code></pre>
     </section>
@@ -162,7 +170,7 @@ def pack_knapsack(items, capacity):
     <section>
     <pre><code class=python data-trim>
 def arrange_talks(talks, rooms, slots):
-    problem = pulp.Problem()
+    problem = pulp.LpProblem()
     variables = {
       (t, r, s): pulp.LpVariable(
         "Schedule_%d_%d_%d" % (t, r, s), cat='Binary')
@@ -170,7 +178,7 @@ def arrange_talks(talks, rooms, slots):
     }
     ... # TODO: constraints go here
     ... # TODO: what to optimize by??
-    problem.solve()
+    problem.solve(pulp.solvers.GLPK(msg=0))
     return [
         assignment for assignment, variable in variables.items()
         if pulp.value(variable) &gt; 0
