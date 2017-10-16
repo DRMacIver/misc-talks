@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Shaping the world</title>
+
+    <meta name="author" content="David R. MacIver">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+    <link rel="stylesheet" href="reveal/css/theme/simple.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+      .reveal h1 { font-size: 1.75em; }
+      .reveal h2 { font-size: 1.50em; }
+      .reveal h3 { font-size: 1em; margin-top: 1em; margin-bottom: 5px; }
+      .reveal pre code {
+        padding: 20px 50px 20px 50px !important;
+      }
+      .reveal section img {
+        background:none; 
+        border:none; 
+        box-shadow:none;
+      }
+
+      img {
+        border: none !important;
+      }
+      section.prose ul {
+        text-align: left;
+      }
+      p.lessig{
+        font-variant: small-caps;
+        font-size: 70pt;
+      }
+
+      .slides .cite{
+        position:absolute;
+        bottom: -1500%;
+        width: 100%;
+        color: white;
+      }
+      .slides .cite a{
+        color: white;
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 5pt;
+        font-size: 12pt;
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <div class="slides">
+        <section>
+          <h1>Shaping the World</h1>
+          <h2>David R. MacIver / drmaciver.com</h2>
+        </section>
+  
+        <section>
+          <p class=lessig>technical</p>
+        </section>
+        <section>
+          <p class=lessig>surprise! ethics</p>
+        </section>
+        <section>
+          <p class=lessig>surprise! <strike>ethics</strike></p>
+        </section>
+        <section>
+          <p>Schwitzgebel, Eric. "Do ethicists steal more books?"</p>
+          <p>Philosophical Psychology 22.6 (2009): 711-725.</p>
+        </section>
+        <section><p class=lessig>consequences</p></section>
+        <section>
+          <p class=lessig>surprise! social science</p>
+        </section>
+        <section>
+          <p class=lessig><strike>surprise!</strike> social science</p>
+        </section>
+        <section>
+          <p class=lessig>cultural anthropology</p>
+        </section>
+        <section>
+            <img src="images/seeing-like-a-state.jpg">
+        </section>
+        <section>
+          <p class=lessig>vocabulary</p>
+        </section>
+        <section>
+          <p class=lessig>legibility</p>
+        </section>
+        <section>
+          <p class=lessig>soft power</p>
+        </section>
+        <section>
+            <img src="images/binary-tree.png">
+        </section>
+        <section data-background-image="images/banyan.jpg">
+          <div class=cite><a href="https://commons.wikimedia.org/wiki/File:Banyan_tree-2.jpg">Banyan Tree by Balaram Mahalder</a></div>
+        </section>
+        <section data-background-image="images/saw-mill.jpg">
+          <div class=cite><a href="https://commons.wikimedia.org/wiki/File:Saw_Mill.jpg">Saw Mill by Allen Drebert</a></div>
+        </section>
+        <section data-background-image="images/mixed-forest.jpg">
+          <div class=cite><a href="https://commons.wikimedia.org/wiki/File:Mixed-forest.jpg">Mixed Forest by Oliver Herold</a></div>
+        </section>
+        <section data-background-image="images/timber-harvesting.jpg">
+          <div class=cite><a href="https://commons.wikimedia.org/wiki/File:Timber_harvesting_in_Kielder_Forest.JPG">Timber Harvesting by "The Boy That Time Forgot"</a></div>
+        </section>
+        <section data-background-image="images/collecting-firewood.jpg">
+          <div class=cite><a href="https://commons.wikimedia.org/wiki/File:Mansel_Lewis_-_Old_Bet_Collecting_Firewood_1879.jpg">Old Bet Collecting Firewood by Charles William Mansel Lewis </a></div>
+        </section>
+        <section data-background-image="images/dying-forest.png">
+          <div class=cite><a href="https://commons.wikimedia.org/wiki/File:Dying_Pine_Forest_les_Landes.png">Dying Pine Forest in les Landes by Ulamm</a></div>
+        </section>
+        <section><img src="images/logos.png">
+        </section>
+      </div>
+    </div>
+
+    <script src="reveal/lib/js/head.min.js"></script>
+    <script src="reveal/js/reveal.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'fade',
+
+        dependencies: [
+          { src: 'reveal/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal/plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
