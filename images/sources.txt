@@ -11,3 +11,6 @@
 <section><a href="https://www.flickr.com/photos/julianlim/4598412264"><img src=images/stopwatch.jpg></a></section>
 <section><a href="https://en.wikipedia.org/wiki/Commodore_64#/media/File:C64c_system.jpg"><img src=images/computer.jpg></a></section>
 <section><a href="https://en.wikipedia.org/wiki/File:Tuskegee_Airmen_332nd_Fighter_Group_pilots_ppmsca13245u.jpg"><img src="images/war.jpg"></a></section>
+<section data-background-image="images/banyan.jpg">
+  <div class=cite><a href="https://commons.wikimedia.org/wiki/File:Banyan_tree-2.jpg>Banyan Tree by Balaram Mahalder</a></p>
+</section>
