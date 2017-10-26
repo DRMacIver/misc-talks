@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
     <link rel="stylesheet" href="reveal/css/reveal.css">
-    <link rel="stylesheet" href="reveal/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="reveal/css/theme/black.css" id="theme">
 
     <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
@@ -33,7 +33,6 @@
     <![endif]-->
 
     <style>
-      .reveal h1 { font-size: 1.75em; }
       .reveal h2 { font-size: 1.50em; }
       .reveal h3 { font-size: 1em; margin-top: 1em; margin-bottom: 5px; }
       .reveal pre code {
@@ -70,17 +69,33 @@
         font-size: 12pt;
       }
 
+    .reveal #footer{
+        position: absolute;
+        z-index: 1;
+        bottom: 0em;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 12pt;
+    }
+  
+    .reveal #footer, .reveal #footer a{
+        color: white;
+        font-size: 28pt;
+    }
+
     </style>
   </head>
 
-  <body>
+  <body id=shaping>
 
     <div class="reveal">
-
+      <div id=footer>
+          David R. MacIver / <a href="http://www.drmaciver.com">drmaciver.com</a> / <a href="https://twitter.com/DRMacIver">@DRMacIver</a>
+      </div>
       <div class="slides">
         <section>
           <h1>Shaping the World</h1>
-          <h2>David R. MacIver / <a href="http://www.drmaciver.com">drmaciver.com</a></h2>
         </section>
   
         <section><p class=lessig>consequences</p></section>
@@ -135,7 +150,7 @@
         <section data-background-image="images/collective-farming.jpg" data-background-size=contain>
           <div class=cite><a href="https://commons.wikimedia.org/wiki/File:%E2%80%9CStrengthen_working_discipline_in_collective_farms%E2%80%9D_%E2%80%93_Uzbek,_Tashkent,_1933_(Mardjani).jpg">"Strengthen working discipline in collective farms" - Soviet propaganda poster</a></div>
         </section>
-        <section><img src="images/logos.png"></section>
+        <section data-background-image="images/logos.png"></section>
 
 <section><pre><code class="SQL" data-trim>
 create table users(
@@ -149,19 +164,11 @@ create table users(
 </code></pre>
         </section>
 
-<section><p class=lessig>disrupt</p></section>
-
-<section>Falsehoods programmers believe about...
-<span class=fragment>names, </span>
-<span class=fragment>gender, </span>
-<span class=fragment>addresses, </span>
-<span class=fragment>time, </span>
-<span class=fragment>geography, dogs, phone numbers, business, society, ...</span>
-</section>
-
         <section data-background-image="images/coke-ad.jpg" data-background-size=contain>
           <div class=cite><a href="https://loc.gov/pictures/resource/cph.3g12222/">Classic Coca Cola Advertisement</a></div>
         </section>
+
+        <section><p class=lessig>disrupt</p></section>
 
         <section data-background-image="images/riot-police.jpg">
           <div class=cite><a href="https://www.flickr.com/photos/mac_ivan/11038342796">Riot police at pro-EU rally in Kiev by Ivan Bandura</a></div>
@@ -199,20 +206,12 @@ create table users(
           <div class=cite><a href="https://commons.wikimedia.org/wiki/File:NY_stock_exchange_traders_floor_LC-U9-10548-6.jpg">New York Stock Exchange by U.S. News & World Report</a></div>
         </section>
 
-        <section data-background-image="images/measures.jpg" data-background-size=cover>
-          <div class=cite><a href="https://wellcomeimages.org/indexplus/image/L0007477.html">Glass Measures by Wellcome Images</a></div>
-        </section>
-
         <section data-background-image="images/manhattan.jpg">
           <div class=cite><a href="https://commons.wikimedia.org/wiki/File:Lower_Manhattan_from_Staten_Island_Ferry_Jan_2006.jpg">Manhattan by Diliff</a></div>
         </section>
 
         <section data-background-image="images/dust-bowl.jpg">
           <div class=cite><a href="https://commons.wikimedia.org/wiki/File:Dust_Bowl_-_Dallas,_South_Dakota_1936.jpg">Dust Bowl, Dallas by United States Department of Agriculture</a></div>
-        </section>
-
-        <section data-background-image="images/tightrope.jpg">
-          <div class=cite><a href="">Nik Wallenda by kevint3141</a></div>
         </section>
 
         <section>
@@ -229,7 +228,6 @@ create table users(
           <p class=lessig>stop relying on ads</p>
         </section>
         <section>
-          <h2>David R. MacIver / <a href="http://www.drmaciver.com">drmaciver.com</a></h2>
           <h2><a href="http://bit.ly/shaping-the-world-pyconuk">bit.ly/shaping-the-world-pyconuk</a></h2>
         </section>
       </div>
@@ -241,8 +239,8 @@ create table users(
     <script>
 
       Reveal.initialize({
-        controls: true,
-        progress: true,
+        controls: false,
+        progress:false,
         history: true,
         center: true,
 
