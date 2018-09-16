@@ -33,8 +33,8 @@
     <![endif]-->
 
     <style>
-      .reveal h1 { font-size: 1.75em; }
-      .reveal h2 { font-size: 1.50em; }
+      .reveal h1 { font-size: 2em; }
+      .reveal h2 { font-size: 1.75em; }
       .reveal h3 { font-size: 1em; margin-top: 1em; margin-bottom: 5px; }
       .reveal pre code {
         padding: 20px 50px 20px 50px !important;
@@ -50,9 +50,18 @@
         width: 100%;
       }
 
+      .reveal h2, .reveal h1 {
+        font-variant: small-caps;
+      }
       p.lessig{
         font-variant: small-caps;
         font-size: 50pt;
+      }
+
+      .reveal li.winner {
+        font-weight: bold;
+        color: red;
+        font-size: 110%;
       }
     </style>
   </head>
@@ -63,7 +72,7 @@
 
       <div class="slides">
         <section>
-          <h1>Making group decisions</h1>
+          <h1>making group decisions</h1>
   <p>
     <a href="http://www.drmaciver.com">drmaciver.com</a> / <a href="https://twitter.com/DRMacIver/">@DRMacIver</a>
   </p>
@@ -75,30 +84,39 @@
     </section>
 
     <section>
-        <p class=lessig>Plurality Voting :-(</p>
+        <h2>plurality voting</h2>
+        <ol>
+            <li class=fragment>Everyone votes for <em>one</em> option.</li>
+            <li class=fragment>Choose the option with the most votes.</li>
+            <li class=fragment>:-(</li>
+        </ol>
     </section>
 
     <section>
-        <h2>Which version of Python should we use?</h2>
+        <h2>alternatives</h2>
+    </section>
+
+    <section>
+        <h2>which version of python?</h2>
         <ul>
-            <li>Python 2</li>
-            <li>Python 3</li>
+            <li>Python 2 - 40%</li>
+            <li class=winner>Python 3 - 60%</li>
         </ul>
     </section>
 
     <section>
-        <h2>Which version of Python should we use?</h2>
+        <h2>font-which version of python?</h2>
         <ul>
-            <li>Python 2.7</li>
-            <li>Python 3.5</li>
-            <li>Python 3.6</li>
-            <li>Python 3.7</li>
-            <li>Python 3.8-dev</li>
+            <li class=winner>Python 2.7 - 40%</li>
+            <li>Python 3.5 - 2%</li>
+            <li>Python 3.6 - 26%</li>
+            <li>Python 3.7 - 30%</li>
+            <li>Python 3.8-dev - 2%</li>
         </ul>
     </section>
 
     <section>
-        <h2>Approval Voting</h2>
+        <h2>approval voting</h2>
         <ol>
             <li class=fragment>Vote for as many options as you want.</li>
             <li class=fragment>Option with the most votes wins.</li>
@@ -106,7 +124,19 @@
     </section>
 
     <section>
-        <h2>Where should we go for lunch?</h2>
+        <h2>which version of python?</h2>
+        <ul>
+            <li>Python 2.7 - 40%</li>
+            <li>Python 3.5 - 4%</li>
+            <li>Python 3.6 - 45%</li>
+            <li class=winner>Python 3.7 - 55%</li>
+            <li>Python 3.8-dev - 3%</li>
+        </ul>
+    </section>
+
+
+    <section>
+        <h2>where should we go for lunch?</h2>
         <ul>
             <li>Pizza (60%)</li>
             <li>Thai (40%)</li>
@@ -114,7 +144,22 @@
     </section>
 
     <section>
-        <h2>Random Ballot</h2>
+        <ul>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>random ballot</h2>
         <ol>
             <li class=fragment>Everyone votes for <em>one</em> option.</li>
             <li class=fragment>Pick a person at random and use their choice.</li>
@@ -122,7 +167,27 @@
     </section>
 
     <section>
-        <p class=lessig>Which should we use?</p>
+        <ul>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Pizza</li>
+            <li>Thai</li>
+            <li>Thai</li>
+            <li>Thai</li>
+            <li>Pizza</li>
+            <li>Thai</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>which should we use?</h2>
+        <ul>
+            <li class=fragment>Big one off decision <span class=fragment>- Approval Voting</span></li>
+            <li class=fragment>Many small decisions <span class=fragment>- Random Ballot</span></li>
+            <li class=fragment>Hate happiness <span class=fragment>- Plurality Voting</span></li>
+        </ul>
     </section>
 
     <section>
@@ -130,7 +195,7 @@
     </section>
 
         <section>
-          <h1>Making group decisions</h1>
+          <h1>making group decisions</h1>
   <p>
     <a href="http://www.drmaciver.com">drmaciver.com</a> / <a href="https://twitter.com/DRMacIver/">@DRMacIver</a>
   </p>
@@ -142,8 +207,8 @@
     <script>
 
       Reveal.initialize({
-        controls: true,
-        progress: true,
+        controls: false,
+        progress: false,
         history: true,
         center: true,
 
