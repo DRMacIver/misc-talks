@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>You are in a maze of twisty little passages</title>
+
+    <meta name="author" content="David R. MacIver">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+    <link rel="stylesheet" href="reveal/css/theme/simple.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+      .reveal h1 { font-size: 1.6em; }
+      .reveal h2 { font-size: 1.5em; }
+      .reveal h3 { font-size: 1em; margin-top: 1em; margin-bottom: 5px; }
+      .reveal pre code {
+        padding: 20px 50px 20px 50px !important;
+      }
+      img {
+        border: none !important;
+      }
+      section.prose ul {
+        text-align: left;
+      }
+
+      blockquote.twitter-tweet {
+        width: 100%;
+      }
+
+      .reveal h2, .reveal h1 {
+        font-variant: small-caps;
+      }
+      p.lessig{
+        font-variant: small-caps;
+        font-size: 50pt;
+      }
+
+      .reveal li.winner {
+        font-weight: bold;
+        color: red;
+        font-size: 110%;
+      }
+
+    .slides .header{
+      position:absolute;
+      top: -50%;
+      left: -50%;
+    }
+    #footer{
+      position:absolute;
+      bottom: 0%;
+      width: 100%;
+      text-align: center;
+      font-size: 19pt;
+      padding: 0;
+    }
+
+    #header{
+      position:absolute;
+      top: 0%;
+      width: 100%;
+      text-align: center;
+      font-size: 19pt;
+      padding: 0;
+    }
+
+    .reveal section img { background:none; border:none; box-shadow:none; }
+
+    .sidegraph{
+        margin: auto 0 auto 0;
+        float: left;
+        width: 30%;
+    }
+
+    .graphcompanion {
+        margin: auto 0 auto 0;
+        float: right;
+        width: 65%;
+        text-align: left;
+        font-size: 18pt;
+        padding: none;
+    }
+
+    .graphcompanion table {
+        margin-left: none;
+        margin-bottom: 1em;
+        float: left;
+        clear: both;
+    }
+
+    .left{
+        margin: auto 0 auto 0;
+        float: left;
+    }
+    .right {
+        margin: auto 0 auto 0;
+        float: right;
+    }
+
+    th, td {
+      border: 1px solid black !important;
+    }
+    th {
+      border-bottom: 3px solid black !important;
+    }
+
+    .reveal .slides section[data-vertical-align-top]{
+        top: 0 !important;
+    }
+
+    .threecolumn {
+      display: grid;
+    }
+    .one {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .two { 
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .three {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    </style>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <div class="slides">
+        <section>
+          <h1>you are in a maze of twisty little passages</h1>
+        </section>
+
+        <section>
+          <h2>you ain't gonna need it</h2>
+        </section>
+
+        <section>
+          <h2>twisty little passages, all different</h2>
+          <img src="mazes/introlabelled.png" />
+        </section>
+
+        <section>
+          <h2>twisty little passages, all alike</h2>
+          <img src="mazes/intro.png" />
+        </section>
+
+        <section>
+          <h2>twisty little passages, kinda similar</h2>
+          <img src="mazes/complex.png" />
+        </section>
+
+        <section>
+          <h2>twisty little passages, kinda similar</h2>
+          <img src="mazes/intropartlabelled.png" />
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/intropartlabelled.png" />
+          </div>
+          <div class=graphcompanion>
+            <p>
+              <span>You are at the entrance <br/></span>
+              <span class="fragment">&gt;&gt; left <br/></span>
+              <span class="fragment">You are in a passage <br/></span>
+              <span class="fragment">&gt;&gt; left <br/></span>
+              <span class="fragment">You are at the entrance <br/></span>
+              <span class="fragment">&gt;&gt; right <br/></span>
+              <span class="fragment">You are in a passage <br/></span>
+              <span class="fragment">&gt;&gt; left <br/></span>
+              <span class="fragment">You are in a passage <br/></span>
+            </p>
+          </div>
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/intropartlabelled.png" />
+          </div>
+          <div class=graphcompanion>
+            <p>
+              <span>You are at the entrance <br/></span>
+              <span>&gt;&gt; left <br/></span>
+              <span>You are in a passage <br/></span>
+              <span style="font-weight: bold; color: red;">&gt;&gt; left <br/></span>
+              <span style="font-weight: bold; color: red;">You are at the entrance <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; left <br/></span>
+              <span>You are in a passage <br/></span>
+            </p>
+          </div>
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/intropartlabelled.png" />
+          </div>
+          <div class=graphcompanion>
+            <p>
+              <span>You are at the entrance <br/></span>
+              <span>&gt;&gt; left <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; left <br/></span>
+              <span>You are at the entrance <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span style="font-weight: bold; color: red;">&gt;&gt; left <br/></span>
+              <span style="font-weight: bold; color: red;">You are in a passage <br/></span>
+            </p>
+          </div>
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/intropartlabelled.png" />
+          </div>
+          <div class=graphcompanion>
+            <table>
+                <thead>
+                <tr> <th>""</th> <th>"L"</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>E</td> <td>P</td> </tr>
+                <tr> <td>P</td> <td>E</td> </tr>
+                <tr> <td>P</td> <td>P</td> </tr>
+                </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/intropartlabelled.png" />
+          </div>
+          <div class=graphcompanion>
+            <table>
+                <thead>
+                <tr> <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>""</td> <td>E</td> <td>P</td> </tr>
+                <tr> <td>"L"</td> <td>P</td> <td>E</td> </tr>
+                <tr> <td>"R"</td> <td>P</td> <td>P</td> </tr>
+                </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/notonedistinguished.png" />
+          </div>
+          <div class=graphcompanion>
+            <table>
+                <thead>
+                <tr>  <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>""</td> <td>E</td> <td>E</td> </tr>
+                <tr> <td>"R"</td> <td>P</td> <td>E</td></tr>
+                <tr> <td>"RR"</td> <td>P</td> <td>P</td></tr>
+                <tr> <td>"RRR"</td> <td>P</td> <td>P</td></tr>
+                </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/notonedistinguished.png" />
+          </div>
+          <div class=graphcompanion>
+            <table>
+                <thead>
+                <tr>  <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> <th>"LL"</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>""</td> <td>E</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"R"</td> <td>P</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"RR"</td> <td>P</td> <td>P</td>  <td>E</td></tr>
+                <tr> <td>"RRR"</td> <td>P</td> <td>P</td>  <td>P</td></tr>
+                </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/indistinguishable.png" />
+          </div>
+          <div class=graphcompanion>
+            <table>
+                <thead>
+                <tr>  <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> <th>"R"</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>""</td> <td>E</td> <td>P</td>  <td>P</td></tr>
+                <tr> <td>"L"</td> <td>P</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"R"</td> <td>P</td> <td>E</td>  <td>E</td></tr>
+                </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/notonedistinguished.png" />
+          </div>
+          <div class=graphcompanion>
+            <table>
+                <thead>
+                <tr>  <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> <th>"LL"</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>""</td> <td>E</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"R"</td> <td>P</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"RR"</td> <td>P</td> <td>P</td>  <td>E</td></tr>
+                <tr> <td>"RRR"</td> <td>P</td> <td>P</td>  <td>P</td></tr>
+                </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/nodcore.png" />
+          </div>
+          <div class=graphcompanion>
+            <table style="font-size: 18pt;">
+                <thead>
+                <tr>  <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> <th>"LL"</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>""</td> <td>E</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"R"</td> <td>P</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"RR"</td> <td>P</td> <td>P</td>  <td>E</td></tr>
+                <tr> <td>"RRR"</td> <td>P</td> <td>P</td>  <td>P</td></tr>
+
+            </table>
+
+            <table style="font-size: 18pt;" class=fragment>
+                <thead>
+                <tr>  <th style="font-weight: bold;">NAME</th> <th>EXIT</th> <th>""</th> <th>"L"</th> <th>"LL"</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>""</td> <td>L</td> <td>E</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"R"</td> <td>L</td> <td>E</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"RR"</td> <td>L</td> <td>P</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"RRR"</td> <td>L</td> <td>P</td> <td>P</td>  <td>E</td></tr>
+                <tr> <td>"RRR"</td> <td>R</td> <td>P</td> <td>P</td>  <td>P</td></tr>
+                </tbody>
+            </table>
+          </div>
+        </section>
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              <img src="mazes/notonedistinguishedlabelled.png" />
+          </div>
+          <div class=graphcompanion>
+            <table style="font-size: 18pt;">
+                <thead>
+                <tr>  <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> <th>"LL"</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>""</td> <td>E</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"R"</td> <td>P</td> <td>E</td>  <td>E</td></tr>
+                <tr> <td>"RR"</td> <td>P</td> <td>P</td>  <td>E</td></tr>
+                <tr> <td>"RRR"</td> <td>P</td> <td>P</td>  <td>P</td></tr>
+
+            </table>
+
+            <table style="font-size: 18pt;">
+                <thead>
+                <tr>  <th style="font-weight: bold;">NAME</th> <th>EXIT</th> <th>""</th> <th>"L"</th> <th>"LL"</th> <th>DESTINATION</th> </tr>
+                </thead>
+                <tbody>
+                <tr> <td>""</td> <td>L</td> <td>E</td> <td>E</td>  <td>E</td>   <td style="border-left: 3px solid black;" >""</td> </tr>
+                <tr> <td>"R"</td> <td>L</td> <td>E</td> <td>E</td>  <td>E</td>  <td style="border-left: 3px solid black;" >""</td> </tr>
+                <tr> <td>"RR"</td> <td>L</td> <td>P</td> <td>E</td>  <td>E</td> <td style="border-left: 3px solid black;" >"R"</td> </tr>
+                <tr> <td>"RRR"</td> <td>L</td> <td>P</td> <td>P</td>  <td>E</td><td style="border-left: 3px solid black;" >"RR"</td> </tr>
+                <tr> <td>"RRR"</td> <td>R</td> <td>P</td> <td>P</td>  <td>P</td><td style="border-left: 3px solid black;" >"RRR"</td> </tr>
+                </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+            <p class=lessig>how do we find experiments?</p>
+        </section>
+
+        <section>
+           <div class=threecolumn>
+           <div class=one>
+              <img src="mazes/err1.png" />
+           </div> 
+           <div class=two>
+            <p>
+              <span>You are at the entrance <br/></span>
+            </p>
+           </div> 
+           <div class=three>
+              <img src="mazes/good1.png" />
+           </div> 
+            </div>
+        </section>
+
+        <section>
+           <div class=threecolumn>
+           <div class=one>
+              <img src="mazes/err2.png" />
+           </div> 
+           <div class=two>
+            <p style="text-align: left;">
+              <span>You are at the entrance <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+            </p>
+           </div> 
+           <div class=three>
+              <img src="mazes/good2.png" />
+           </div> 
+            </div>
+        </section>
+
+        <section>
+           <div class=threecolumn>
+           <div class=one>
+              <img src="mazes/err3.png" />
+           </div> 
+           <div class=two>
+            <p style="text-align: left;">
+              <span>You are at the entrance <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+            </p>
+           </div> 
+           <div class=three>
+              <img src="mazes/good3.png" />
+           </div> 
+            </div>
+        </section>
+
+
+        <section>
+           <div class=threecolumn>
+           <div class=one>
+              <img src="mazes/err3.png" />
+           </div> 
+           <div class=two>
+            <p style="text-align: left;">
+              <span>You are at the entrance <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+            </p>
+           </div> 
+           <div class=three>
+              <img src="mazes/good4.png" />
+           </div> 
+            </div>
+        </section>
+
+        <section>
+           <div class=threecolumn>
+           <div class=one>
+              <img src="mazes/err2.png" />
+           </div> 
+           <div class=two>
+            <p style="text-align: left;">
+              <span>You are at the entrance <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; left <br/></span>
+              <span>You are in a passage <br/></span>
+            </p>
+           </div> 
+           <div class=three>
+              <img src="mazes/good3.png" />
+           </div> 
+            </div>
+        </section>
+        <section>
+           <div class=threecolumn>
+           <div class=one>
+              <img src="mazes/errboom.png" />
+           </div> 
+           <div class=two>
+            <p style="text-align: left;">
+              <span>You are at the entrance <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; left <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; left <br/></span>
+              <span>You are in a passage <br/></span>
+            </p>
+           </div> 
+           <div class=three>
+              <img src="mazes/good2.png" />
+           </div> 
+            </div>
+        </section>
+        <section>
+           <div class=threecolumn>
+           <div class=one>
+              <img src="mazes/err3wrong.png" />
+           </div> 
+           <div class=two>
+            <p style="text-align: left;">
+              <span>You are at the entrance <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+              <span style="color: gray;">&gt;&gt; left <br/></span>
+              <span style="color: gray;">You are in a passage <br/></span>
+              <span style="color: gray;">&gt;&gt; left <br/></span>
+              <span style="color: gray;">You are in a passage <br/></span>
+            </p>
+           </div> 
+           <div class=three>
+              <img src="mazes/good4.png" />
+           </div> 
+            </div>
+        </section>
+        <section>
+           <div class=threecolumn>
+           <div class=one>
+              <img src="mazes/err3wrong.png" />
+           </div> 
+           <div class=two>
+            <table>
+                <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
+                <tr><td></td><td>RRRLL</td> <td>P</td> </tr>
+                <tr><td>R</td><td>RRLL</td> <td>P</td> </tr>
+                <tr><td>RR</td><td>RLL</td> <td>P</td> </tr>
+                <tr><td>RR</td><td>LL</td> <td>E</td> </tr>
+            </table>
+           </div> 
+           <div class=three>
+              <img src="mazes/good4.png" />
+           </div> 
+            </div>
+        </section>
+        <section>
+    <h2>Further Reading</h2>
+<p>Learning regular sets from queries and counterexamples<br/>Angluin, Dana. </p>
+<p>Inference of finite automata using homing sequences<br/>Rivest, Ronald L. and Robert E. Schapire. </p>
+        </section>
+
+        <div id=footer>
+          Slides URL | David R. MacIver | <a href="https://twitter.com/DRMacIver/">@DRMacIver</a>
+        </div>
+      </div>
+    </div>
+    <script src="reveal/lib/js/head.min.js"></script>
+    <script src="reveal/js/reveal.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        controls: false,
+        progress: false,
+        history: true,
+        center: true,
+
+        transition: 'fade',
+
+        dependencies: [
+          { src: 'reveal/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal/plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
