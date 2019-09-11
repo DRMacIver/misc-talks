@@ -1,0 +1,27 @@
+digraph intro {
+    Entrance[label="Entrance"];
+    A[label="Passage"];
+    B[label="Passage"];
+    C[label="Passage"];
+	fountain[label="fountain"];
+	treasure[label="treasure"];
+
+    Entrance -> C [label="L"];
+    Entrance -> A [label="R"];
+
+    A -> Entrance [label="L"];
+    A -> B [label="R"];
+
+    B -> A [label="L"];
+    B -> treasure [label="R"];
+
+    C -> B [label="L"];
+    C -> fountain [label="R"];
+
+    fountain -> B [label="L"];
+	fountain -> A [label="R"];
+
+	treasure -> B [label="L"];
+	treasure -> Entrance [label="R"];
+
+}

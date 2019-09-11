@@ -1,0 +1,15 @@
+digraph intro {
+    origin[label="Entrance"];
+    A[label="Passage"];
+    B[label="Passage"];
+
+    origin -> A [label="L"];
+    origin -> B [label="R"];
+
+    A -> origin [label="L"];
+    A -> B [label="R"];
+
+    B -> A [label="L"];
+    B -> origin [label="R"];
+
+}
