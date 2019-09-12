@@ -180,95 +180,137 @@
         </section>
 
 
+<%
 
+import os
+import hashlib
+from graphviz import Digraph
+
+FILE_CACHE = {}
+
+def render_maze_as_file(graph):
+    key = str(graph)
+    try:
+        return FILE_CACHE[key]
+    except KeyError:
+        pass
+    
+    path = ("mazes", f"rendered_{hashlib.sha1(key.encode('utf-8')).hexdigest()[:8]}")
+
+    filename = os.path.join(os.path.dirname(__file__), *path)
+
+    if not os.path.exists(filename + ".png"):
+        graph.render(filename=filename,  format="png")
+    return FILE_CACHE.setdefault(key, "/".join(path) + ".png")
+
+
+def build_graph_from_desc(nodes, focus=None, error=False):
+    result = Digraph("maze", graph_attr=[("size", "4,5!"), ("dpi", "100")])
+
+    for name, label, l, r in nodes:
+        kwargs = dict(label=label)
+        if focus == name or (not isinstance(focus, str) and focus is not None and name in focus):
+            kwargs["style"] = "filled"
+            if error:
+                kwargs["fillcolor"] = "green"
+                kwargs["label"] += "\nWRONG"
+            else:
+                kwargs["fillcolor"] = "green"
+        result.node(name, **kwargs)
+
+    dummy_counter = 0
+         
+    for name, label, l, r in nodes:
+        for t, v in [["L", l], ["R", r]]:
+            kwargs = dict(label=t)
+            if v == "...":
+                dummy_counter += 1
+                l = f"dummy{dummy_counter}"
+                result.node(l, style="invisible")
+                kwargs["style"] = "dotted"
+            result.edge(name, v, **kwargs)
+
+    return f'<img src="{render_maze_as_file(result)}"/>'
+
+
+COMPLEX_MAZE = [
+    ("Entrance", "Entrance", "B", "A"),
+    ("A", "Passage", "A", "B"),
+    ("B", "Passage", "C", "Entrance"),
+    ("C", "Passage", "Fountain", "B"),
+    ("Fountain", "Passage", "D", "A"),
+    ("D", "Passage", "A", "Treasure"),
+    ("Treasure", "Treasure", "B", "Entrance"),
+]
+%>
 
 
         <section>
           <h2>twisty little passages, kinda similar</h2>
-          <img src="mazes/rendered_020e0b40.png"/>
+          ${build_graph_from_desc(COMPLEX_MAZE)}
         </section>
 
+<%
 
+BASIC_GRAPH = [
+    ("Entrance", "Entrance", "A", "B"),
+    ("A", "Passage", "Entrance", "B"),
+    ("B", "Passage", "A", "Entrance"),
+]
+
+def graph_walk(graph, path, entrance="Entrance"):
+    edges = {t: (l, r) for t, _, l, r in graph}
+
+    visited = [entrance]
+
+    for p in path:
+        l, r = edges[visited[-1]]
+        if p == "L":
+            visited.append(l)
+        else:
+            assert p == "R"
+            visited.append(r)
+    return visited
+
+%>
 
         <section>
           <h2>twisty little passages, kinda similar</h2>
-          <img src="mazes/rendered_eba648ff.png"/>
+          ${build_graph_from_desc(BASIC_GRAPH)}
         </section>
+
+%for i, label in enumerate(graph_walk(BASIC_GRAPH, "LLRL")):
+        <section data-vertical-align-top>
+          <div class=sidegraph>
+              ${build_graph_from_desc(BASIC_GRAPH, focus=label)}
+          </div>
+          <div class=graphcompanion>
+            <p>
+              <span>You are at the entrance <br/></span>
+%if i >= 1: 
+              <span>&gt;&gt; left <br/></span>
+              <span>You are in a passage <br/></span>
+%endif
+%if i >= 2:
+              <span>&gt;&gt; left <br/></span>
+              <span>You are at the entrance <br/></span>
+%endif
+%if i >= 3:
+              <span>&gt;&gt; right <br/></span>
+              <span>You are in a passage <br/></span>
+%endif
+%if i >= 4:
+              <span>&gt;&gt; left <br/></span>
+              <span>You are in a passage <br/></span>
+%endif
+            </p>
+          </div>
+        </section>
+%endfor
 
         <section data-vertical-align-top>
           <div class=sidegraph>
-              <img src="mazes/rendered_646ba1e1.png"/>
-          </div>
-          <div class=graphcompanion>
-            <p>
-              <span>You are at the entrance <br/></span>
-            </p>
-          </div>
-        </section>
-        <section data-vertical-align-top>
-          <div class=sidegraph>
-              <img src="mazes/rendered_6d052968.png"/>
-          </div>
-          <div class=graphcompanion>
-            <p>
-              <span>You are at the entrance <br/></span>
-              <span>&gt;&gt; left <br/></span>
-              <span>You are in a passage <br/></span>
-            </p>
-          </div>
-        </section>
-        <section data-vertical-align-top>
-          <div class=sidegraph>
-              <img src="mazes/rendered_646ba1e1.png"/>
-          </div>
-          <div class=graphcompanion>
-            <p>
-              <span>You are at the entrance <br/></span>
-              <span>&gt;&gt; left <br/></span>
-              <span>You are in a passage <br/></span>
-              <span>&gt;&gt; left <br/></span>
-              <span>You are at the entrance <br/></span>
-            </p>
-          </div>
-        </section>
-        <section data-vertical-align-top>
-          <div class=sidegraph>
-              <img src="mazes/rendered_2db7262e.png"/>
-          </div>
-          <div class=graphcompanion>
-            <p>
-              <span>You are at the entrance <br/></span>
-              <span>&gt;&gt; left <br/></span>
-              <span>You are in a passage <br/></span>
-              <span>&gt;&gt; left <br/></span>
-              <span>You are at the entrance <br/></span>
-              <span>&gt;&gt; right <br/></span>
-              <span>You are in a passage <br/></span>
-            </p>
-          </div>
-        </section>
-        <section data-vertical-align-top>
-          <div class=sidegraph>
-              <img src="mazes/rendered_6d052968.png"/>
-          </div>
-          <div class=graphcompanion>
-            <p>
-              <span>You are at the entrance <br/></span>
-              <span>&gt;&gt; left <br/></span>
-              <span>You are in a passage <br/></span>
-              <span>&gt;&gt; left <br/></span>
-              <span>You are at the entrance <br/></span>
-              <span>&gt;&gt; right <br/></span>
-              <span>You are in a passage <br/></span>
-              <span>&gt;&gt; left <br/></span>
-              <span>You are in a passage <br/></span>
-            </p>
-          </div>
-        </section>
-
-        <section data-vertical-align-top>
-          <div class=sidegraph>
-              <img src="mazes/rendered_66a764b6.png"/>
+              ${build_graph_from_desc(BASIC_GRAPH, focus=("A", "Entrance"))}
           </div>
           <div class=graphcompanion>
             <p>
@@ -287,7 +329,7 @@
 
         <section data-vertical-align-top>
           <div class=sidegraph>
-              <img src="mazes/rendered_84719967.png"/>
+              ${build_graph_from_desc(BASIC_GRAPH, focus=("A", "B"))}
           </div>
           <div class=graphcompanion>
             <p>
@@ -636,460 +678,219 @@
 
 
 
+% for i in [1, 2, 3, 4, 5, 6]:
 
+<%
+if i < 4:
+	errstate = i
+else:
+    errstate = str(3 - (i - 4)) + "wrong"
 
+if i <= 4:
+	goodstate = i
+else:
+	goodstate = 4 - (i - 4)
+
+%>
 
         <section>
            <div class=threecolumn>
            <div class=one>
-		  <img src="mazes/err1.png" />
+		  <img src="mazes/err${errstate}.png" />
            </div> 
            <div class=two>
             <table>
                 <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
                 <tr><td>""</td><td>"RRRLL"</td> <td>P</td> </tr>
-            </table>
-           </div> 
-           <div class=three>
-              <img src="mazes/good1.png" />
-           </div> 
-            </div>
-        </section>
-
-
-
-        <section>
-           <div class=threecolumn>
-           <div class=one>
-		  <img src="mazes/err2.png" />
-           </div> 
-           <div class=two>
-            <table>
-                <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
-                <tr><td>""</td><td>"RRRLL"</td> <td>P</td> </tr>
+% if i >= 2:
                 <tr><td>"R"</td><td>"RRLL"</td> <td>P</td> </tr>
-            </table>
-           </div> 
-           <div class=three>
-              <img src="mazes/good2.png" />
-           </div> 
-            </div>
-        </section>
-
-
-
-        <section>
-           <div class=threecolumn>
-           <div class=one>
-		  <img src="mazes/err3.png" />
-           </div> 
-           <div class=two>
-            <table>
-                <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
-                <tr><td>""</td><td>"RRRLL"</td> <td>P</td> </tr>
-                <tr><td>"R"</td><td>"RRLL"</td> <td>P</td> </tr>
+% endif
+% if i >= 3:
                 <tr><td>"RR"</td><td>"RLL"</td> <td>P</td> </tr>
-            </table>
-           </div> 
-           <div class=three>
-              <img src="mazes/good3.png" />
-           </div> 
-            </div>
-        </section>
-
-
-
-        <section>
-           <div class=threecolumn>
-           <div class=one>
-		  <img src="mazes/err3wrong.png" />
-           </div> 
-           <div class=two>
-            <table>
-                <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
-                <tr><td>""</td><td>"RRRLL"</td> <td>P</td> </tr>
-                <tr><td>"R"</td><td>"RRLL"</td> <td>P</td> </tr>
-                <tr><td>"RR"</td><td>"RLL"</td> <td>P</td> </tr>
+% endif
+% if i >= 4:
                 <tr><td>"RR"</td><td>"LL"</td> <td>E</td> </tr>
-            </table>
-           </div> 
-           <div class=three>
-              <img src="mazes/good4.png" />
-           </div> 
-            </div>
-        </section>
-
-
-
-        <section>
-           <div class=threecolumn>
-           <div class=one>
-		  <img src="mazes/err2wrong.png" />
-           </div> 
-           <div class=two>
-            <table>
-                <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
-                <tr><td>""</td><td>"RRRLL"</td> <td>P</td> </tr>
-                <tr><td>"R"</td><td>"RRLL"</td> <td>P</td> </tr>
-                <tr><td>"RR"</td><td>"RLL"</td> <td>P</td> </tr>
-                <tr><td>"RR"</td><td>"LL"</td> <td>E</td> </tr>
+% endif
+% if i >= 5:
                 <tr><td>"R"</td><td>"L"</td> <td>E</td> </tr>
-            </table>
-           </div> 
-           <div class=three>
-              <img src="mazes/good3.png" />
-           </div> 
-            </div>
-        </section>
-
-
-
-        <section>
-           <div class=threecolumn>
-           <div class=one>
-		  <img src="mazes/err1wrong.png" />
-           </div> 
-           <div class=two>
-            <table>
-                <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
-                <tr><td>""</td><td>"RRRLL"</td> <td>P</td> </tr>
-                <tr><td>"R"</td><td>"RRLL"</td> <td>P</td> </tr>
-                <tr><td>"RR"</td><td>"RLL"</td> <td>P</td> </tr>
-                <tr><td>"RR"</td><td>"LL"</td> <td>E</td> </tr>
-                <tr><td>"R"</td><td>"L"</td> <td>E</td> </tr>
+% endif
+% if i >= 6:
                 <tr><td>""</td><td>""</td> <td>E</td> </tr>
+% endif
             </table>
            </div> 
            <div class=three>
-              <img src="mazes/good2.png" />
+              <img src="mazes/good${goodstate}.png" />
            </div> 
             </div>
         </section>
+% endfor
+
+<%
+
+C_MAZE_EDGES = {
+    n: (l, r) for n, _, l, r in COMPLEX_MAZE
+}
+
+C_MAZE_LABELS = {
+    n: t for n, t, *_ in COMPLEX_MAZE
+}
+
+EXPERIMENTS = [""]
+ROOMS = [""]
 
 
+ROOM_CACHE = {}
 
 
+def path_room(p):
+    if not p:
+        return "Entrance"
+    else:
+        try:
+            return ROOM_CACHE[p]
+        except KeyError:
+            prev = path_room(p[:-1])
+            l, r = C_MAZE_EDGES[prev]
+            if p[-1] == "L":
+                result = l
+            else:
+                result = r
+            return ROOM_CACHE.setdefault(p, result)
+
+def path_label(p):
+    return C_MAZE_LABELS[path_room(p)]
+
+import random
+random.seed(0)
+%>
 
 
+% while True:
+
+<% 
+
+def calc_row(s):
+    return tuple(path_label(s + t)[0] for t in EXPERIMENTS)
+
+row_to_rooms = {
+    calc_row(r): r for r in ROOMS
+}
+    
+room_exits = {}
+
+i = 0
+while i < len(ROOMS):
+    r = ROOMS[i]
+    i += 1
+    exits = []
+    for t in "LR":
+        dest = r + t
+        row = calc_row(dest)
+        try:
+            exits.append(row_to_rooms[row])
+        except KeyError:
+            row_to_rooms[row] = dest
+            ROOMS.append(dest)
+            exits.append(dest)
+    assert len(exits) == 2, exits
+    room_exits[r] = tuple(exits)
+
+
+def quote(t):
+    return f'"{t}"'
+
+graph = [
+    (r, f"{quote(r)}\n({path_label(r)})", *room_exits[r])
+    for r in ROOMS
+]
+
+
+%>
         <section>
            <div class=threecolumn>
            <div class=one>
-              <img src="mazes/rendered_8de4635a.png"/>
+              ${build_graph_from_desc(graph)}
            </div> 
            <div class=two style="font-size: 18pt;">
 <table>
 <tr> <th>NAME</th>
-    <th>""</th>
+% for t in EXPERIMENTS:
+    <th>${quote(t)}</th>
+% endfor
 
+% for r in ROOMS:
 <tr>
 
-<td>""</td>
+<td>${quote(r)}</td>
 
-    <td>"E"</td>
+% for label in calc_row(r):
+    <td>${quote(label)}</td>
+% endfor
 
-<tr>
-
-<td>"L"</td>
-
-    <td>"P"</td>
-
+% endfor
 </tr>
 
 
 </table>            
+% if len(ROOMS) < len(COMPLEX_MAZE):
 
+<%
+    from collections import deque
 
+    pending = deque([""])
+
+    while pending:
+        attempt = pending.popleft()
+        pending.append(attempt + "L")
+        pending.append(attempt + "R")
+
+        walked = [r for r in graph_walk(graph, attempt, entrance="")]
+        walked_labels = list(map(path_label, walked))
+        actual = [path_label(attempt[:i]) for i in range(len(attempt) + 1)]
+        if walked_labels != actual:
+            break
+
+added = False
+prev_label = None
+%>
             <table style="margin-top: 2em">
                 <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
 
+% for i, w in enumerate(walked):
 
+<%
 
+rest = attempt[i:] 
+label = path_label(w + rest)[0]
 
-<tr><td>""</td> <td>"RR"</td>  <td>P</td></tr>
+if not added and prev_label is not None and prev_label != label:
+    EXPERIMENTS.append(rest)
+    added = True
 
+prev_label = label
+%>
 
-
-<tr><td>"L"</td> <td>"R"</td>  <td>E</td></tr>
-
-
-
-<tr><td>""</td> <td>""</td>  <td>E</td></tr>
+<tr><td>${quote(w)}</td> <td>${quote(rest)}</td>  <td>${label}</td></tr>
+% endfor
             </table>
 
+%endif
 
            </div> 
            <div class=three>
-              <img src="mazes/rendered_020e0b40.png"/>
+              ${build_graph_from_desc(COMPLEX_MAZE)}
            </div> 
             </div>
         </section>
 
 
-
-
-
-
-        <section>
-           <div class=threecolumn>
-           <div class=one>
-              <img src="mazes/rendered_ef129c53.png"/>
-           </div> 
-           <div class=two style="font-size: 18pt;">
-<table>
-<tr> <th>NAME</th>
-    <th>""</th>
-    <th>"R"</th>
-
-<tr>
-
-<td>""</td>
-
-    <td>"E"</td>
-    <td>"P"</td>
-
-<tr>
-
-<td>"L"</td>
-
-    <td>"P"</td>
-    <td>"E"</td>
-
-<tr>
-
-<td>"R"</td>
-
-    <td>"P"</td>
-    <td>"P"</td>
-
-</tr>
-
-
-</table>            
-
-
-            <table style="margin-top: 2em">
-                <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
-
-
-
-
-<tr><td>""</td> <td>"LLLLR"</td>  <td>T</td></tr>
-
-
-
-<tr><td>"L"</td> <td>"LLLR"</td>  <td>T</td></tr>
-
-
-
-<tr><td>"R"</td> <td>"LLR"</td>  <td>P</td></tr>
-
-
-
-<tr><td>"R"</td> <td>"LR"</td>  <td>P</td></tr>
-
-
-
-<tr><td>"R"</td> <td>"R"</td>  <td>P</td></tr>
-
-
-
-<tr><td>"L"</td> <td>""</td>  <td>P</td></tr>
-            </table>
-
-
-           </div> 
-           <div class=three>
-              <img src="mazes/rendered_020e0b40.png"/>
-           </div> 
-            </div>
-        </section>
-
-
-
-
-
-
-        <section>
-           <div class=threecolumn>
-           <div class=one>
-              <img src="mazes/rendered_b0b473fc.png"/>
-           </div> 
-           <div class=two style="font-size: 18pt;">
-<table>
-<tr> <th>NAME</th>
-    <th>""</th>
-    <th>"R"</th>
-    <th>"LLR"</th>
-
-<tr>
-
-<td>""</td>
-
-    <td>"E"</td>
-    <td>"P"</td>
-    <td>"P"</td>
-
-<tr>
-
-<td>"L"</td>
-
-    <td>"P"</td>
-    <td>"E"</td>
-    <td>"P"</td>
-
-<tr>
-
-<td>"R"</td>
-
-    <td>"P"</td>
-    <td>"P"</td>
-    <td>"P"</td>
-
-<tr>
-
-<td>"LL"</td>
-
-    <td>"P"</td>
-    <td>"P"</td>
-    <td>"T"</td>
-
-</tr>
-
-
-</table>            
-
-
-            <table style="margin-top: 2em">
-                <tr><th>ROOM</th><th>REST</th><th>RESULT</th></tr>
-
-
-
-
-<tr><td>""</td> <td>"LLLLR"</td>  <td>T</td></tr>
-
-
-
-<tr><td>"L"</td> <td>"LLLR"</td>  <td>T</td></tr>
-
-
-
-<tr><td>"LL"</td> <td>"LLR"</td>  <td>T</td></tr>
-
-
-
-<tr><td>"R"</td> <td>"LR"</td>  <td>P</td></tr>
-
-
-
-<tr><td>"R"</td> <td>"R"</td>  <td>P</td></tr>
-
-
-
-<tr><td>"L"</td> <td>""</td>  <td>P</td></tr>
-            </table>
-
-
-           </div> 
-           <div class=three>
-              <img src="mazes/rendered_020e0b40.png"/>
-           </div> 
-            </div>
-        </section>
-
-
-
-
-
-
-        <section>
-           <div class=threecolumn>
-           <div class=one>
-              <img src="mazes/rendered_c43f5945.png"/>
-           </div> 
-           <div class=two style="font-size: 18pt;">
-<table>
-<tr> <th>NAME</th>
-    <th>""</th>
-    <th>"R"</th>
-    <th>"LLR"</th>
-    <th>"LR"</th>
-
-<tr>
-
-<td>""</td>
-
-    <td>"E"</td>
-    <td>"P"</td>
-    <td>"P"</td>
-    <td>"E"</td>
-
-<tr>
-
-<td>"L"</td>
-
-    <td>"P"</td>
-    <td>"E"</td>
-    <td>"P"</td>
-    <td>"P"</td>
-
-<tr>
-
-<td>"R"</td>
-
-    <td>"P"</td>
-    <td>"P"</td>
-    <td>"P"</td>
-    <td>"P"</td>
-
-<tr>
-
-<td>"LL"</td>
-
-    <td>"P"</td>
-    <td>"P"</td>
-    <td>"T"</td>
-    <td>"P"</td>
-
-<tr>
-
-<td>"LLL"</td>
-
-    <td>"P"</td>
-    <td>"P"</td>
-    <td>"P"</td>
-    <td>"T"</td>
-
-<tr>
-
-<td>"LLLL"</td>
-
-    <td>"P"</td>
-    <td>"T"</td>
-    <td>"P"</td>
-    <td>"P"</td>
-
-<tr>
-
-<td>"LLLLR"</td>
-
-    <td>"T"</td>
-    <td>"E"</td>
-    <td>"P"</td>
-    <td>"E"</td>
-
-</tr>
-
-
-</table>            
-
-           </div> 
-           <div class=three>
-              <img src="mazes/rendered_020e0b40.png"/>
-           </div> 
-            </div>
-        </section>
-
-
+<%
+if len(COMPLEX_MAZE) == len(graph):
+    break
+%>
+
+% endwhile
 
         <section>
 			<h2>RECAP</h2>
