@@ -206,8 +206,38 @@ def render_maze_as_file(graph):
     return FILE_CACHE.setdefault(key, "/".join(path) + ".png")
 
 
+from collections import deque
+
+
+def shortlex(s):
+    return (s, len(s))
+
+
+def shortlex_sort_graph(graph):
+    return
+    names = {}
+    exits = {}
+    for name, _, l, r in graph:
+        exits[name] = (l, r)
+
+    explore = deque([("Entrance", "")])
+
+    while explore:
+        name, label = explore.popleft()
+        if name in names:
+            continue
+        names[name] = label
+        l, r = exits[name]
+        explore.append((l, label + "L"))
+        explore.append((r, label + "R"))
+
+    graph.sort(key=lambda t: shortlex(names[t[0]]))
+
+
 def build_graph_from_desc(nodes, focus=None, error=False):
     result = Digraph("maze", graph_attr=[("size", "4,5!"), ("dpi", "100")])
+    nodes = list(nodes)
+    shortlex_sort_graph(nodes)
 
     for name, label, l, r in nodes:
         kwargs = dict(label=label)
@@ -444,10 +474,11 @@ def graph_walk(graph, path, entrance="Entrance"):
         </section>
 
         <section data-vertical-align-top>
-          <div class=sidegraph>
-              <img src="mazes/notonedistinguished.png" />
+           <div class=threecolumn>
+           <div class=one>
+              <img src="mazes/nodpartial.png" />
           </div>
-          <div class=graphcompanion>
+          <div class=two>
             <table>
                 <thead>
                 <tr>  <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> <th>"LL"</th> </tr>
@@ -460,13 +491,19 @@ def graph_walk(graph, path, entrance="Entrance"):
                 </tbody>
             </table>
           </div>
+            <div class=three>
+              <img src="mazes/notonedistinguished.png" />
+
+            </div>
+            </div>
         </section>
 
         <section data-vertical-align-top>
-          <div class=sidegraph>
+           <div class=threecolumn>
+           <div class=one>
               <img src="mazes/nodcore.png" />
           </div>
-          <div class=graphcompanion>
+          <div class=two>
             <table style="font-size: 18pt;">
                 <thead>
                 <tr>  <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> <th>"LL"</th> </tr>
@@ -492,12 +529,18 @@ def graph_walk(graph, path, entrance="Entrance"):
                 </tbody>
             </table>
           </div>
+            <div class=three>
+              <img src="mazes/notonedistinguished.png" />
+
+            </div>
+          </div>
         </section>
         <section data-vertical-align-top>
-          <div class=sidegraph>
+           <div class=threecolumn>
+           <div class=one>
               <img src="mazes/notonedistinguishedlabelled.png" />
           </div>
-          <div class=graphcompanion>
+          <div class=two>
             <table style="font-size: 18pt;">
                 <thead>
                 <tr>  <th style="font-weight: bold;">NAME</th> <th>""</th> <th>"L"</th> <th>"LL"</th> </tr>
@@ -522,6 +565,11 @@ def graph_walk(graph, path, entrance="Entrance"):
                 <tr> <td>"RRR"</td> <td>R</td> <td>P</td> <td>P</td>  <td>P</td><td style="border-left: 3px solid black;" >"RRR"</td> </tr>
                 </tbody>
             </table>
+          </div>
+            <div class=three>
+              <img src="mazes/notonedistinguished.png" />
+
+            </div>
           </div>
         </section>
 
