@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>How to have great conversations</title>
+
+    <meta name="author" content="David R. MacIver">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+    <link rel="stylesheet" href="reveal/css/theme/simple.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+      .reveal h1 { font-size: 80pt; }
+      .reveal h2 { font-size: 60pt; }
+      .reveal h3 { font-size: 1em; margin-top: 1em; margin-bottom: 5px; }
+      .reveal pre code {
+        padding: 20px 50px 20px 50px !important;
+      }
+      img {
+        border: none !important;
+      }
+      section.prose ul {
+        text-align: left;
+      }
+
+      blockquote.twitter-tweet {
+        width: 100%;
+      }
+
+      .reveal h2, .reveal h1 {
+        font-variant: small-caps;
+      }
+      p.lessig{
+        font-variant: small-caps;
+        font-size: 50pt;
+      }
+
+      .reveal li.winner {
+        font-weight: bold;
+        color: red;
+        font-size: 110%;
+      }
+    #footer{
+      position:absolute;
+      bottom: 0%;
+      width: 100%;
+      text-align: center;
+      font-size: 19pt;
+      padding: 0 0 1em 0;
+    }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <div class="slides">
+        <section>
+           <h1>how to have great conversations</h1>
+           <h2 class=fragment>(or meetings)</h2>
+        </section>
+        <section>
+           <p class=lessig>people are bad at conversations</p>
+        </section>
+        <section>
+           <p class=lessig>people are good at conversations</p>
+        </section>
+        <section>
+           <p class=lessig>people are bad at <em>structuring</em> conversations</p>
+        </section>
+
+        <section>
+            <p class=lessig>lightweight interventions</p>
+        </section>
+
+        <section>
+            <p class=lessig>conch / speaking object</p>
+        </section>
+        <section>
+            <p class=lessig>topic timers</p>
+        </section>
+        <section>
+            <p class=lessig>wave to interrupt people</p>
+        </section>
+        <section>
+            <p class=lessig>formal structures</h2>
+        </section>
+        <section>
+            <p class="lessig">liberating structures</p>
+            <p><a href=http://www.liberatingstructures.com/>liberatingstructures.com</a></p>
+        </section>
+        <section>
+            <p class="lessig">ticktalk</p>
+            <p><a href="http://bit.ly/DRMacIverTickTalk">bit.ly/DRMacIverTickTalk</a></p>
+        </section>
+      </div>
+    </div>
+	<div id=footer>
+	  David R. MacIver | <a href="https://twitter.com/DRMacIver/">@DRMacIver</a>
+	</div>
+    <script src="reveal/lib/js/head.min.js"></script>
+    <script src="reveal/js/reveal.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        controls: false,
+        progress: false,
+        history: true,
+        center: true,
+        width: '100%',
+
+        transition: 'fade',
+
+        dependencies: [
+          { src: 'reveal/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal/plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
